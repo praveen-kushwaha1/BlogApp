@@ -1,0 +1,28 @@
+
+User API
+curl --location 'http://localhost:8080/api/users/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "AliceSmith",
+    "email": "alice.smith@example.com",
+    "password": "mypassword",
+    "about": "A brief introduction about Alice."
+}'
+
+curl --location --request PUT 'http://localhost:8080/api/users/1' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "AliceSmith1",
+    "email": "alice.smith@example.com",
+    "password": "mypassword",
+    "about": "A brief introduction about Alice."
+}'
+
+curl --location 'http://localhost:8080/api/users/' \
+--data ''
+
+curl --location 'http://localhost:8080/api/users/1' \
+--data ''
+
+curl --location --request DELETE 'http://localhost:8080/api/users/2' \
+--data ''
