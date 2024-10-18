@@ -1,5 +1,6 @@
 
 User API
+--------------------------------------------------------------------------------
 curl --location 'http://localhost:8080/api/users/' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -26,3 +27,31 @@ curl --location 'http://localhost:8080/api/users/1' \
 
 curl --location --request DELETE 'http://localhost:8080/api/users/2' \
 --data ''
+
+
+---------------------------------------------------------------------------------------
+Category API
+
+curl --location 'http://localhost:8080/api/categories/' \
+--header 'Content-Type: application/json' \
+--data '{
+    "categoryTitle": "Electronics",
+    "categoryDescription": "Devices and gadgets for everyday use."
+}'
+
+curl --location --request PUT 'http://localhost:8080/api/categories/1' \
+--header 'Content-Type: application/json' \
+--data '{
+    "categoryTitle": "Books1",
+    "categoryDescription": "A wide range of literature and educational materials."
+}'
+
+curl --location 'http://localhost:8080/api/categories/' \
+--data ''
+
+curl --location 'http://localhost:8080/api/categories/1' \
+--data ''
+
+curl --location --request DELETE 'http://localhost:8080/api/categories/1' \
+--data ''
+
