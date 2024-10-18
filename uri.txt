@@ -31,6 +31,7 @@ curl --location --request DELETE 'http://localhost:8080/api/users/2' \
 
 ---------------------------------------------------------------------------------------
 Category API
+------------------------------------------------------------------------------------
 
 curl --location 'http://localhost:8080/api/categories/' \
 --header 'Content-Type: application/json' \
@@ -55,3 +56,37 @@ curl --location 'http://localhost:8080/api/categories/1' \
 curl --location --request DELETE 'http://localhost:8080/api/categories/1' \
 --data ''
 
+
+----------------------------------------------------------------------------------------
+PostAPI
+---------------------------------------------------------------------------------------
+curl --location 'http://localhost:8080/api/user/1/category/2/posts' \
+--header 'Content-Type: application/json' \
+--data '{
+    "title": "adv Post Title",
+    "imageName": "praveen.png",
+    "content": "This is a adv post content."
+}'
+
+curl --location 'http://localhost:8080/api/user/1/posts' \
+--data ''
+
+curl --location 'http://localhost:8080/api/category/2/posts' \
+--data ''
+
+curl --location --request PUT 'http://localhost:8080/api/post/update/2' \
+--header 'Content-Type: application/json' \
+--data '{
+    "title": "adv Post Title",
+    "imageName": "praveen.png",
+    "content": "This is a adv post content."
+}'
+
+curl --location 'http://localhost:8080/api/posts' \
+--data ''
+
+curl --location 'http://localhost:8080/api/post/2' \
+--data ''
+
+curl --location --request DELETE 'http://localhost:8080/api/post/delete/2' \
+--data ''
