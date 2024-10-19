@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,7 +14,7 @@ import lombok.Setter;
 public class PostDto {
 
 	private Integer postId;
-	
+
 	private String title;
 
 	private String content;
@@ -23,16 +22,18 @@ public class PostDto {
 	private String imageName;
 
 	private Date addedDate;
-	
+
 	// taking 'dto' for category and 'user' to avoid infinite loop
-		// 'dto' me post nhi h but 'user' and 'category' me h .
+	// 'dto' me post nhi h but 'user' and 'category' me h .
 
 	private CategoryDto category; // post kis category ka h
 
 	private UserDto user; // post kis user ka h
-	
+
 	// to get all comments. using 'dto' to avoid infinite loop.
-	//private Set<CommentDto> comments = new HashSet<>();  
-	
+
+	// comment entity ke pas post but commentDto ke pas post nhi hai using 'dto' to
+	// avoid infinite loop.
+	private Set<CommentDto> comments = new HashSet<>();
 
 }
