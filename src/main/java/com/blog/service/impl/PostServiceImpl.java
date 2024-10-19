@@ -87,7 +87,6 @@ public class PostServiceImpl implements PostService {
 		return postDtos;
 	}
 	
-	
 	@Override
 	public List<PostDto> searchPosts(String keyword) {
 		// agar 'title' me ye 'keyword' dikha to us post ko show kar dega.
@@ -95,7 +94,6 @@ public class PostServiceImpl implements PostService {
 		List<PostDto> postDtos = posts.stream().map((post)->this.modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
 		return postDtos;
 	}
-
 
 	@Override
 	public PostDto updatePost(PostDto postDto, Integer postId) {
@@ -114,14 +112,6 @@ public class PostServiceImpl implements PostService {
 		this.postRepo.delete(post);
 	}
 
-
-	@Override
-	public PostResponse getAllPostBySorting(Integer pageNumber, Integer pageSize, String sortBy, String sortDir) {
-		
-		return null;
-	}
-
-
 	@Override
 	public List<PostDto> getAllPost() {
 
@@ -132,6 +122,33 @@ public class PostServiceImpl implements PostService {
 
 		return postDtos;
 
+	}
+	// will sort acc to the field that we will pass in place of 'sortBy' while calling api.
+		// 'sortDir' is for sorting in either ascending or descending order.
+	@Override
+	public PostResponse getAllPostByPagination(Integer pageNumber, Integer pageSize, String sortBy, String sortDir) {
+		System.out.println(
+				"pageNumber= " + pageNumber + ",pageSize=" + pageSize + ",sortBy=" + sortBy + ",sortDir=" + sortDir);
+		// shortcur using ternary operator
+		Sort sort = (sortDir.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending());
+
+		Pageable paginationRequest = PageRequest.of(pageNumber, pageSize, sort); // getting the peagable object
+		Page<Post> pagePost = this.postRepo.findAll(paginationRequest); // is object se help se us page ka details nikal sakte h.
+		List<Post> allPosts = pagePost.getContent(); // to get all post on that page
+
+		List<PostDto> postDtos = allPosts.stream().map((post) -> this.modelMapper.map(post, PostDto.class))
+				.collect(Collectors.toList());
+
+		PostResponse postResponse = new PostResponse();
+
+		postResponse.setContent(postDtos);
+		postResponse.setPageNumber(pagePost.getNumber());
+		postResponse.setPageSize(pagePost.getSize());
+		postResponse.setTotalPages(pagePost.getTotalPages());
+		postResponse.setTotalelements(pagePost.getTotalElements());
+		postResponse.setLastPage(pagePost.isLast());
+
+		return postResponse;
 	}
 
 }
