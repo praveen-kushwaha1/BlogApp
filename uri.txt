@@ -90,3 +90,11 @@ curl --location 'http://localhost:8080/api/post/2' \
 
 curl --location --request DELETE 'http://localhost:8080/api/post/delete/2' \
 --data ''
+
+GetPostUsingPagination
+curl --location 'http://localhost:8080/api/pagination/posts?PageNumber=1&PageSize=2&sortBy=postId&sortDir=asc' \
+--data ''
+
+SearchPostUsingtiltleContent
+curl --location 'http://localhost:8080/api/posts/search/1' \
+--data ''
