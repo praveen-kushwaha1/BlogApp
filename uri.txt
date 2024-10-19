@@ -98,3 +98,10 @@ curl --location 'http://localhost:8080/api/pagination/posts?PageNumber=1&PageSiz
 SearchPostUsingtiltleContent
 curl --location 'http://localhost:8080/api/posts/search/1' \
 --data ''
+Upload Post
+curl --location 'http://localhost:8080/api/post/image/upload/16' \
+--form 'image=@"/D:/praveen/Screenshots/Screenshot_2023-07-22-15-28-07-760_com.niksoftware.snapseed.jpg"'
+
+Download Post
+curl --location 'http://localhost:8080/api/post/image/23adb585-01a3-4f1a-a394-835ba074a593.jpg' \
+--data ''
