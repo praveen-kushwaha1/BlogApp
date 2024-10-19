@@ -46,12 +46,12 @@ public class Post {
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private User user;         // post kis user ka h
-	
-	
+	private User user; // post kis user ka h
+
 	// using 'mappedBy' taki jo foreign key bano wo sirf 'post' table me bane
 	// to avoid infinite loop.
-	//@OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-	//private Set<Comment> comments = new HashSet<>();
-	
+	//list bhi bana sakte hai
+	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+	private Set<Comment> comments = new HashSet<>();
+
 }
