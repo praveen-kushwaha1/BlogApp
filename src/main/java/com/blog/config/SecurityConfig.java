@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.blog.security.JwtAuthenticationEntryPoint;
 import com.blog.security.JwtAuthenticationFilter;
@@ -23,12 +24,13 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.Customizer;
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity  
+@EnableWebMvc     // for swagger// for swagger
 @EnableMethodSecurity
 public class SecurityConfig {
 
 	public static final String[] PUBLIC_URLS = { "/api/auth/**", "/v3/api-docs", "/v2/api-docs",
-			"/swagger-resources/**", "/swagger-ui/**", "/webjars/**"
+			"/swagger-resources/**", "/swagger-ui/index.html", "/webjars/**"
 
 	};
 	@Autowired
@@ -53,10 +55,12 @@ public class SecurityConfig {
 		 * //http.formLogin(Customizer.withDefaults());
 		 * http.httpBasic(Customizer.withDefaults()); return http.build();
 		 */
-
+        //"api/auth/login", "api/auth/register"
 		http.csrf(customizer -> customizer.disable())
-				.authorizeHttpRequests(request -> request.requestMatchers("api/auth/login", "api/auth/register")
-						.permitAll().anyRequest().authenticated())
+				.authorizeHttpRequests(request -> request.requestMatchers(PUBLIC_URLS)
+						
+						.permitAll()
+						.requestMatchers(HttpMethod.GET).permitAll().anyRequest().authenticated())
 				.exceptionHandling(req -> req.authenticationEntryPoint(jwtAuthenticationEntryPoint))
 				.httpBasic(Customizer.withDefaults())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
